@@ -45,7 +45,7 @@ The Android-based client is responsible for initiating communication and sending
 
 The JavaFX application acts as a multi-stage server, separating connection setup from operational monitoring.
 
-### 1. Connection Setup (`ConnectionPage.fxml`)
+### 1. Connection Setup (`connection-view.fxml`)
 
 This initial screen ensures all necessary system components are active before monitoring begins.
 
@@ -54,7 +54,7 @@ This initial screen ensures all necessary system components are active before mo
 - ✅ **Server Initialization:** Starts the `ServerSocket` listener on the dynamically configured IP and Port in a dedicated background thread.
 - ✅ **Guarded Navigation:** A **GO TO MESSAGE VIEWER** button only becomes active once both the database and the network server are successfully connected.
 
-### 2. Data Viewer & Storage (`DataViewer.fxml`)
+### 2. Data Viewer & Storage (`message-view.fxml`)
 
 This is the operational dashboard for real-time data management.
 
