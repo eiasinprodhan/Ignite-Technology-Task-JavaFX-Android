@@ -37,7 +37,6 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    // ==================== UI COMPONENTS ====================
     private EditText etIpAddress;
     private EditText etPort;
     private EditText etCustomMessage;
@@ -49,22 +48,18 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private CardView statusCard;
 
-    // ==================== THREADING ====================
     private ExecutorService executorService;
     private Handler mainHandler;
 
-    // ==================== CONNECTION STATE ====================
     private boolean isSending = false;
     private int messagesSentCount = 0;
     private long lastSentTime = 0;
 
-    // ==================== DEFAULT CONFIGURATION ====================
-    private static final String DEFAULT_IP = "192.168.0.102";
+    private static final String DEFAULT_IP = "192.168.0.101";
     private static final int DEFAULT_PORT = 3005;
     private static final String DEFAULT_MESSAGE = "Data Send";
     private static final int CONNECTION_TIMEOUT = 5000;
 
-    // ==================== IGNITE COLOR CONSTANTS ====================
     private static final String COLOR_PRIMARY = "#2563eb";
     private static final String COLOR_ACCENT = "#0891b2";
     private static final String COLOR_SUCCESS = "#22c55e";
@@ -76,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String COLOR_INFO_LIGHT = "#eff6ff";
     private static final String COLOR_TEXT_MUTED = "#94a3b8";
 
-    // ==================== LIFECYCLE ====================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,11 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ==================== WINDOW SETUP ====================
 
-    /**
-     * Setup window - Keep status bar with IGNITE color, remove toolbar only
-     */
     private void setupWindow() {
         // Hide ActionBar/Toolbar only
         if (getSupportActionBar() != null) {
@@ -126,15 +116,9 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#1d4ed8")); // primary_dark
-
-        // Light status bar icons (dark icons on light background) - optional
-        // Uncomment below if you want light status bar with dark icons
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        //     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        // }
     }
 
-    // ==================== INITIALIZATION ====================
+
 
     private void initializeViews() {
         etIpAddress = findViewById(R.id.et_ip_address);
@@ -159,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         if (localIp != null && !localIp.isEmpty()) {
             String[] parts = localIp.split("\\.");
             if (parts.length == 4) {
-                String suggestedIp = parts[0] + "." + parts[1] + "." + parts[2] + ".102";
+                String suggestedIp = parts[0] + "." + parts[1] + "." + parts[2] + ".101";
                 etIpAddress.setText(suggestedIp);
             }
         } else {
@@ -216,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    // ==================== CLICK LISTENERS ====================
 
     private void setupClickListeners() {
         btnSend.setOnClickListener(v -> {
@@ -235,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // ==================== DATA TRANSMISSION ====================
 
     private void sendData(String message) {
         if (isSending) {
@@ -390,8 +372,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // ==================== UI HELPERS ====================
-
     private void setLoadingState(boolean isLoading) {
         btnSend.setEnabled(!isLoading);
         btnSendDefault.setEnabled(!isLoading);
@@ -424,8 +404,6 @@ public class MainActivity extends AppCompatActivity {
         if (text == null) return "";
         return text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
-
-    // ==================== ANIMATIONS ====================
 
     private void shakeView(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationX",
