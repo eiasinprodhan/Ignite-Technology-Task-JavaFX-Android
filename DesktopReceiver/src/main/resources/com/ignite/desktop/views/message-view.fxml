@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ignite.desktop.controller.ConnectionController"
+            styleClass="main-container">
+
+    <!-- Header with Navigation -->
+    <top>
+        <VBox styleClass="header-section" spacing="0">
+            <padding>
+                <Insets top="16" right="32" bottom="16" left="32"/>
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <!-- Back Button -->
+                <Button fx:id="backToConnectionBtn" styleClass="btn-back" onAction="#handleBackToConnection">
+                    <graphic>
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label text="←" styleClass="back-arrow"/>
+                            <Label text="Connection Settings" styleClass="back-text"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Separator orientation="VERTICAL" styleClass="header-separator"/>
+
+                <!-- Logo & Title -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="⚡" styleClass="logo-icon-small"/>
+                    <Label text="IGNITE" styleClass="app-title-small"/>
+                    <Label text="•" styleClass="header-dot"/>
+                    <Label text="Message Center" styleClass="page-title"/>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Connection Status Indicators -->
+                <HBox alignment="CENTER" spacing="16">
+                    <HBox fx:id="dbStatusBadgeMini" alignment="CENTER" spacing="6" styleClass="status-badge-mini">
+                        <Circle fx:id="dbStatusIndicatorMini" radius="5" styleClass="status-light"/>
+                        <Label fx:id="dbStatusLabelMini" text="Database" styleClass="status-text-mini"/>
+                    </HBox>
+                    <HBox fx:id="serverStatusBadgeMini" alignment="CENTER" spacing="6" styleClass="status-badge-mini">
+                        <Circle fx:id="serverStatusIndicatorMini" radius="5" styleClass="status-light"/>
+                        <Label fx:id="serverStatusLabelMini" text="Server" styleClass="status-text-mini"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Local IP Display -->
+                <Label fx:id="localIpLabelMsg" styleClass="ip-label-small"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Content - Message Data -->
+    <center>
+        <VBox spacing="20" styleClass="content-container">
+            <padding>
+                <Insets top="20" right="32" bottom="20" left="32"/>
+            </padding>
+
+            <!-- Stats Overview Bar -->
+            <HBox spacing="20" alignment="CENTER" styleClass="stats-overview-bar">
+                <HBox alignment="CENTER" spacing="12" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-container">
+                        <Circle radius="20" styleClass="stat-icon-bg-blue"/>
+                        <Label text="📨" styleClass="stat-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label fx:id="totalMessagesLabel" text="0" styleClass="stat-value-large"/>
+                        <Label text="Total Messages" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="12" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-container">
+                        <Circle radius="20" styleClass="stat-icon-bg-green"/>
+                        <Label text="✓" styleClass="stat-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label fx:id="savedCountLabel" text="0" styleClass="stat-value-large"/>
+                        <Label text="Saved" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="12" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-container">
+                        <Circle radius="20" styleClass="stat-icon-bg-red"/>
+                        <Label text="✗" styleClass="stat-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label fx:id="errorCountLabel" text="0" styleClass="stat-value-large"/>
+                        <Label text="Errors" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="12" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-container">
+                        <Circle radius="20" styleClass="stat-icon-bg-orange"/>
+                        <Label text="⏱" styleClass="stat-icon"/>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label fx:id="lastActivityLabel" text="--:--" styleClass="stat-value-large"/>
+                        <Label text="Last Activity" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- Main Data Table Section -->
+            <VBox styleClass="data-table-container" VBox.vgrow="ALWAYS" spacing="16">
+
+                <!-- Table Header -->
+                <HBox alignment="CENTER_LEFT" spacing="16" styleClass="table-header-bar">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <StackPane styleClass="live-indicator-container">
+                            <Circle radius="8" styleClass="live-pulse-ring"/>
+                            <Circle fx:id="liveIndicator" radius="6" styleClass="live-dot"/>
+                        </StackPane>
+                        <Label text="Incoming Messages" styleClass="section-title"/>
+                        <Label fx:id="liveBadge" text="LIVE" styleClass="live-badge"/>
+                    </HBox>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Search Box -->
+                    <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="8">
+                        <Label text="🔍" styleClass="search-icon"/>
+                        <TextField fx:id="searchField" promptText="Search messages..."
+                                   styleClass="search-input" prefWidth="220"
+                                   onKeyReleased="#handleSearch"/>
+                    </HBox>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="10">
+                        <Button fx:id="refreshBtn" text="Refresh" styleClass="btn-secondary"
+                                onAction="#handleRefresh">
+                            <graphic>
+                                <Label fx:id="refreshIcon" text="🔄" styleClass="btn-icon-sm"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="deleteBtn" text="Delete" styleClass="btn-danger"
+                                onAction="#handleDelete" disable="true">
+                            <graphic>
+                                <Label text="🗑️" styleClass="btn-icon-sm"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="clearBtn" text="Clear All" styleClass="btn-warning"
+                                onAction="#handleClear">
+                            <graphic>
+                                <Label text="🧹" styleClass="btn-icon-sm"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </HBox>
+
+                <!-- Data Table -->
+                <TableView fx:id="dataTable" VBox.vgrow="ALWAYS" styleClass="modern-table">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="70" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="dataColumn" text="Message Content" prefWidth="400"/>
+                        <TableColumn fx:id="ipColumn" text="Sender IP" prefWidth="150" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="timeColumn" text="Received At" prefWidth="180" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="110" style="-fx-alignment: CENTER;"/>
+                    </columns>
+                    <placeholder>
+                        <VBox alignment="CENTER" spacing="16" styleClass="table-placeholder">
+                            <Label text="📭" style="-fx-font-size: 48px; -fx-opacity: 0.5;"/>
+                            <Label text="No messages yet" styleClass="placeholder-title"/>
+                            <Label text="Messages from connected mobile devices will appear here"
+                                   styleClass="placeholder-hint"/>
+                        </VBox>
+                    </placeholder>
+                </TableView>
+
+                <!-- Record Count Footer -->
+                <HBox alignment="CENTER_LEFT" spacing="16" styleClass="table-footer-bar">
+                    <Label fx:id="tableRecordCountLabel" text="Showing 0 records" styleClass="record-count-text"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="connectionInfoLabel" text="" styleClass="connection-info-text"/>
+                </HBox>
+            </VBox>
+
+            <!-- Activity Log Section -->
+<!--            <VBox styleClass="log-section" spacing="12" prefHeight="160">-->
+<!--                <HBox alignment="CENTER_LEFT" spacing="12">-->
+<!--                    <HBox alignment="CENTER_LEFT" spacing="8">-->
+<!--                        <Label text="📋" styleClass="log-icon"/>-->
+<!--                        <Label text="Activity Log" styleClass="log-title"/>-->
+<!--                    </HBox>-->
+<!--                    <Region HBox.hgrow="ALWAYS"/>-->
+<!--                    <Button fx:id="clearLogBtn" text="Clear Log" styleClass="btn-text-small"-->
+<!--                            onAction="#handleClearLog"/>-->
+<!--                </HBox>-->
+<!--                <TextArea fx:id="liveLogArea" editable="false" wrapText="true"-->
+<!--                          VBox.vgrow="ALWAYS" styleClass="log-area"-->
+<!--                          promptText="Activity log will appear here..."/>-->
+<!--            </VBox>-->
+        </VBox>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="16" styleClass="footer">
+            <padding>
+                <Insets top="12" right="24" bottom="12" left="24"/>
+            </padding>
+
+            <Label fx:id="serverInfoLabel" text="Server: Not Running" styleClass="footer-info"/>
+            <Label text="•" styleClass="footer-dot"/>
+            <Label fx:id="dbInfoLabel" text="Database: Not Connected" styleClass="footer-info"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="© 2025 Ignite Technology" styleClass="footer-text"/>
+            <Label text="•" styleClass="footer-dot"/>
+            <Label text="Message Center v1.0" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>

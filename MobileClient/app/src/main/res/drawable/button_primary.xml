@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#1d4ed8">
+    <item>
+        <shape android:shape="rectangle">
+            <!-- IGNITE Primary Blue -->
+            <solid android:color="#2563eb"/>
+            <corners android:radius="10dp"/>
+
+            <!-- Subtle shadow effect -->
+            <padding
+                android:left="16dp"
+                android:top="14dp"
+                android:right="16dp"
+                android:bottom="14dp"/>
+        </shape>
+    </item>
+</ripple>

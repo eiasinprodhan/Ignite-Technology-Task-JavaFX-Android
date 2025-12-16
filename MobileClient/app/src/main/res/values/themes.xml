@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- IGNITE Theme - Status Bar visible, No Toolbar -->
+    <style name="Theme.MobileSender" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar - IGNITE Blue -->
+        <item name="android:statusBarColor">@color/primary_dark</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/bg_primary</item>
+
+        <!-- No ActionBar/Toolbar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

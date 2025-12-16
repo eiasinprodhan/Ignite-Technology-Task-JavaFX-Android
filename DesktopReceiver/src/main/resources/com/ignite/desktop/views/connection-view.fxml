@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ignite.desktop.controller.ConnectionController"
+            styleClass="main-container">
+
+    <!-- Header -->
+    <top>
+        <VBox styleClass="header-section" alignment="CENTER" spacing="8">
+            <padding>
+                <Insets top="24" right="32" bottom="20" left="32"/>
+            </padding>
+
+            <HBox alignment="CENTER" spacing="12">
+                <Label text="⚡" styleClass="logo-icon"/>
+                <Label text="IGNITE" styleClass="app-title"/>
+            </HBox>
+            <Label text="Communication System • Desktop Manager" styleClass="app-subtitle"/>
+            <Label fx:id="localIpLabel" styleClass="ip-label"/>
+        </VBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="main-scroll">
+            <VBox fx:id="mainContainer" spacing="24" alignment="TOP_CENTER">
+                <padding>
+                    <Insets top="24" right="48" bottom="32" left="48"/>
+                </padding>
+
+                <!-- Connection Cards Row -->
+                <HBox spacing="24" alignment="CENTER">
+
+                    <!-- Database Connection Card -->
+                    <VBox fx:id="dbCard" styleClass="connection-card" spacing="16" HBox.hgrow="ALWAYS" maxWidth="480">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <StackPane styleClass="icon-container">
+                                <Circle radius="20" styleClass="icon-bg"/>
+                                <Label text="🗄️" styleClass="card-icon"/>
+                            </StackPane>
+                            <VBox spacing="2">
+                                <Label text="Database Connection" styleClass="card-title"/>
+                                <Label text="MySQL Server Configuration" styleClass="card-description"/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <!-- Status Badge -->
+                            <HBox fx:id="dbStatusBadge" alignment="CENTER" spacing="8" styleClass="status-badge, status-disconnected">
+                                <StackPane styleClass="status-light-container">
+                                    <Circle radius="6" styleClass="status-light-outer"/>
+                                    <Circle fx:id="dbStatusIndicator" radius="5" styleClass="status-light"/>
+                                </StackPane>
+                                <Label fx:id="dbStatusLabel" text="Disconnected" styleClass="status-text"/>
+                            </HBox>
+                        </HBox>
+
+                        <Separator styleClass="card-separator"/>
+
+                        <GridPane hgap="16" vgap="14" styleClass="form-grid">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="90" prefWidth="100"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150"/>
+                            </columnConstraints>
+
+                            <Label text="Host" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="dbHostField" promptText="localhost" styleClass="text-field-modern"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                            <Label text="Port" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="dbPortField" promptText="3306" styleClass="text-field-modern"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                            <Label text="Database" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="dbNameField" promptText="ignite_comm_db" styleClass="text-field-modern"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                            <Label text="Username" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="dbUsernameField" promptText="root" styleClass="text-field-modern"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                            <Label text="Password" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <PasswordField fx:id="dbPasswordField" promptText="Enter password" styleClass="text-field-modern"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        </GridPane>
+
+                        <Region VBox.vgrow="ALWAYS"/>
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button fx:id="connectDbBtn" text="Connect"
+                                    styleClass="btn-primary" onAction="#handleConnectDatabase">
+                                <graphic>
+                                    <Label text="🔗" styleClass="btn-icon"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Server Connection Card -->
+                    <VBox fx:id="serverCard" styleClass="connection-card" spacing="16" HBox.hgrow="ALWAYS" maxWidth="480">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <StackPane styleClass="icon-container">
+                                <Circle radius="20" styleClass="icon-bg-accent"/>
+                                <Label text="📡" styleClass="card-icon"/>
+                            </StackPane>
+                            <VBox spacing="2">
+                                <Label text="Socket Server" styleClass="card-title"/>
+                                <Label text="Real-time Connection Handler" styleClass="card-description"/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <!-- Status Badge -->
+                            <HBox fx:id="serverStatusBadge" alignment="CENTER" spacing="8" styleClass="status-badge, status-disconnected">
+                                <StackPane styleClass="status-light-container">
+                                    <Circle radius="6" styleClass="status-light-outer"/>
+                                    <Circle fx:id="serverStatusIndicator" radius="5" styleClass="status-light"/>
+                                </StackPane>
+                                <Label fx:id="serverStatusLabel" text="Stopped" styleClass="status-text"/>
+                            </HBox>
+                        </HBox>
+
+                        <Separator styleClass="card-separator"/>
+
+                        <GridPane hgap="16" vgap="14" styleClass="form-grid">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="90" prefWidth="100"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="IP Address" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="serverIpField" promptText="192.168.0.105" styleClass="text-field-modern"
+                                       editable="false"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                            <Label text="Port" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="serverPortField" promptText="3005" styleClass="text-field-modern"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        </GridPane>
+
+                        <!-- Stats inside server card -->
+                        <HBox spacing="16" alignment="CENTER" styleClass="stats-row">
+                            <VBox alignment="CENTER" spacing="4" styleClass="stat-item" HBox.hgrow="ALWAYS">
+                                <Label fx:id="recordCountLabel" text="0" styleClass="stat-value-medium"/>
+                                <Label text="Records Received" styleClass="stat-label"/>
+                            </VBox>
+                            <Separator orientation="VERTICAL" styleClass="stat-separator"/>
+                            <VBox alignment="CENTER" spacing="4" styleClass="stat-item" HBox.hgrow="ALWAYS">
+                                <Label fx:id="lastReceivedLabel" text="--:--" styleClass="stat-value-time"/>
+                                <Label text="Last Activity" styleClass="stat-label"/>
+                            </VBox>
+                        </HBox>
+
+                        <Region VBox.vgrow="ALWAYS"/>
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button fx:id="connectServerBtn" text="Start Server"
+                                    styleClass="btn-accent" onAction="#handleConnectServer">
+                                <graphic>
+                                    <Label text="▶" styleClass="btn-icon"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Go to Messages Button - Shows when both connected -->
+                <VBox fx:id="navigationSection" alignment="CENTER" spacing="16" visible="false" managed="false">
+                    <Separator styleClass="section-separator"/>
+
+                    <HBox alignment="CENTER" spacing="16">
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="✅ All Systems Connected" styleClass="success-title"/>
+                            <Label text="Database and Server are ready to receive data" styleClass="success-subtitle"/>
+                        </VBox>
+                    </HBox>
+
+                    <Button fx:id="goToMessagesBtn" styleClass="btn-nav-large" onAction="#handleGoToMessages">
+                        <graphic>
+                            <HBox alignment="CENTER" spacing="12">
+                                <Label text="📨" styleClass="nav-icon"/>
+                                <VBox alignment="CENTER_LEFT" spacing="2">
+                                    <Label text="Open Message Center" styleClass="nav-btn-title"/>
+                                    <Label text="View incoming data and manage messages" styleClass="nav-btn-subtitle"/>
+                                </VBox>
+                                <Label text="→" styleClass="nav-arrow"/>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </VBox>
+
+                <!-- Activity Log -->
+<!--                <VBox styleClass="log-section" spacing="10" prefHeight="500">-->
+<!--                    <HBox alignment="CENTER_LEFT" spacing="10">-->
+<!--                        <Label text="📋" styleClass="log-icon"/>-->
+<!--                        <Label text="Activity Log" styleClass="log-title"/>-->
+<!--                    </HBox>-->
+<!--                    <TextArea fx:id="liveLogArea" editable="false" wrapText="true"-->
+<!--                              VBox.vgrow="ALWAYS" styleClass="log-area"-->
+<!--                              promptText="Activity log will appear here..."/>-->
+<!--                </VBox>-->
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox alignment="CENTER" styleClass="footer">
+            <padding>
+                <Insets top="12" right="24" bottom="12" left="24"/>
+            </padding>
+            <Label text="© 2025 Ignite Technology" styleClass="footer-text"/>
+            <Label text="•" styleClass="footer-dot"/>
+            <Label text="Desktop Communication System" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>

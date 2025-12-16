@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8fafc"
+    android:fitsSystemWindows="false"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- ========== HEADER ========== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡"
+                    android:textSize="32sp"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IGNITE"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="#0f172a"
+                    android:letterSpacing="0.05"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile Communication Client"
+                android:textSize="14sp"
+                android:textColor="#64748b"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/tv_device_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📱 Detecting IP..."
+                android:textSize="12sp"
+                android:textColor="#0891b2"
+                android:background="#ecfeff"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- ========== CONNECTION SETTINGS CARD ========== -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📡"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Server Connection"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#0f172a"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desktop Socket Configuration"
+                            android:textSize="12sp"
+                            android:textColor="#94a3b8"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desktop IP Address"
+                    android:textSize="13sp"
+                    android:textColor="#475569"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp"/>
+
+                <EditText
+                    android:id="@+id/et_ip_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="192.168.0.102"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    android:textColor="#0f172a"
+                    android:textColorHint="#94a3b8"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Port"
+                    android:textSize="13sp"
+                    android:textColor="#475569"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp"/>
+
+                <EditText
+                    android:id="@+id/et_port"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="3005"
+                    android:inputType="number"
+                    android:textSize="15sp"
+                    android:textColor="#0f172a"
+                    android:textColorHint="#94a3b8"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ========== MESSAGE CARD ========== -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✉️"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Send Message"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#0f172a"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter data to transmit"
+                            android:textSize="12sp"
+                            android:textColor="#94a3b8"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message Content"
+                    android:textSize="13sp"
+                    android:textColor="#475569"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp"/>
+
+                <EditText
+                    android:id="@+id/et_custom_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_background"
+                    android:hint="Enter message to send"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    android:textColor="#0f172a"
+                    android:textColorHint="#94a3b8"
+                    android:layout_marginBottom="20dp"/>
+
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="📤  SEND MESSAGE"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_primary"
+                    android:elevation="2dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <Button
+                    android:id="@+id/btn_send_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="⚡  QUICK SEND 'Data Send'"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_secondary"
+                    android:elevation="2dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ========== STATUS CARD ========== -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/status_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#eff6ff"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:gravity="center">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:indeterminateTint="#2563eb"
+                    android:visibility="gone"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ready to send data"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#2563eb"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_last_sent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#64748b"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ========== INFO CARD ========== -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#fffbeb">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ℹ️"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Instructions"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#d97706"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. Start the Desktop Receiver app first\n2. Connect to the socket server\n3. Ensure both devices are on same network\n4. Enter message and press SEND"
+                    android:textSize="12sp"
+                    android:textColor="#92400e"
+                    android:lineSpacingExtra="4dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Footer -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="© 2025 IGNITE Technology"
+            android:textSize="11sp"
+            android:textColor="#94a3b8"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

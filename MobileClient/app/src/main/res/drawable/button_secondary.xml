@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#0e7490">
+    <item>
+        <shape android:shape="rectangle">
+            <!-- IGNITE Accent Cyan -->
+            <solid android:color="#0891b2"/>
+            <corners android:radius="10dp"/>
+
+            <padding
+                android:left="16dp"
+                android:top="14dp"
+                android:right="16dp"
+                android:bottom="14dp"/>
+        </shape>
+    </item>
+</ripple>
