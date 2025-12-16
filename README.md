@@ -68,9 +68,9 @@ This is the operational dashboard for real-time data management.
 | :--------: | :------------------------------------------- | :--------------------------------------------------------------------------------: |
 | **Step 1** | Initial Connection Screen with Config Fields |        ![Desktop App - Initial Connection View](<Previews/Desktop(1).png>)         |
 | **Step 2** | Both Database and Server Connected           | ![Desktop App - Server Started and Ready for Next Page](<Previews/Desktop(2).png>) |
-| **Step 3** | Message Viewer Dashboard (Ready)             |        ![Desktop App - Data Viewer Page (Empty)](<Previews/Desktop(3).png>)        |
-| **Step 4** | Real-Time Data Reception                     |   ![Desktop App - New Message Received and Displayed](<Previews/Desktop(4).png>)   |
-| **Step 5** | Stored Data Proof (Table View)               |          ![Desktop App - Data Stored in Table](<Previews/Desktop(5).png>)          |
+| **Step 3** | After All Connection Message Button Showing  |        ![Desktop App - Data Viewer Page (Empty)](<Previews/Desktop(3).png>)        |
+| **Step 4** | Message Viewer Screeen                       |   ![Desktop App - New Message Received and Displayed](<Previews/Desktop(4).png>)   |
+| **Step 5** | Stored Data/Message Proof                    |          ![Desktop App - Data Stored in Table](<Previews/Desktop(5).png>)          |
 
 ---
 
