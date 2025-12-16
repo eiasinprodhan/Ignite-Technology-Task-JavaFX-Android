@@ -1,100 +1,111 @@
-# 📱 Desktop-Mobile Communication System (Java Developer Technical Assignment)
+# 🚀 Desktop-Mobile Communication System: Real-Time Data Transfer
 
-This repository contains the solution for the Java Developer technical assignment: designing and developing a simple client-server communication system where a Mobile Application sends data to a Desktop Application using an IP address and port, and the Desktop Application receives, displays, and stores the data in a local database.
+## 🎯 Project Overview
 
-The system is implemented using **Java** across both platforms, leveraging **Sockets** for network communication, **JavaFX** for the desktop GUI, and a **MySQL** database for persistence.
+This repository presents the solution for the Java Developer technical assignment: a robust client-server system designed for real-time data communication between a mobile client and a desktop server. The system efficiently handles network transmission, real-time data display, and persistent storage in a centralized **MySQL** database.
 
-## 🚀 Architecture and Technologies
+---
 
-The system follows a robust **Client-Server** model with clear stage separation on the server side, connecting to an external **MySQL** instance:
+## ✨ Key Features & Technologies
 
-| Component                | Role                                                                                    | Technology/Framework                | Language |
-| :----------------------- | :-------------------------------------------------------------------------------------- | :---------------------------------- | :------- |
-| **Mobile App** (Client)  | Sends user-defined custom messages over the network.                                    | Android SDK                         | Java     |
-| **Desktop App** (Server) | Handles connection setup, listens for data, displays it, and stores it in the database. | JavaFX (GUI) + Sockets (Networking) | Java     |
-| **Database**             | Persistent, relational storage for received data entries.                               | **MySQL** (via JDBC Connector)      | SQL      |
+The solution is built on modern Java technologies, ensuring stability and performance.
 
-## ✨ Part 1: Mobile Application (Client)
+| Component                | Role                                          | Technology Stack                                             |
+| :----------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
+| **Server** (Desktop App) | Data Listener, UI Dashboard, Database Manager | **JavaFX**, **JDBC**, **MySQL Connector/J**, **TCP Sockets** |
+| **Client** (Mobile App)  | Data Sender with Dynamic Input                | **Android SDK**, **Java**, **TCP Sockets**                   |
+| **Persistence**          | Centralized Data Storage                      | **MySQL RDBMS**                                              |
 
-The Mobile Application is a single-page Android app with enhanced functionality for dynamic input.
+### 🛠️ Core Technology Tags
 
-### Key Features
+**`JAVA`** $\cdot$ **`JavaFX`** $\cdot$ **`Android`** $\cdot$ **`TCP/IP`** $\cdot$ **`MySQL`** $\cdot$ **`JDBC`**
 
-- **Custom Message Input:** Allows the user to type and send **custom messages** instead of a fixed string.
-- **Network Transmission:** Uses an asynchronous task to establish a `Socket` connection and transmit the user-defined message.
-- **Target:** Configured to send data to the static address `192.168.0.105:3005`.
-- **User Feedback:** Provides confirmation (Toast) upon successful transmission or alerts on connection failure.
+---
 
-### Previews (Mobile App)
+## 📱 Part 1: Mobile Application (Client)
 
-|                        **Android(1).jpg**                         |                       **Android(2).jpg**                        |
+The Android-based client is responsible for initiating communication and sending custom, user-defined data.
+
+### Functionality
+
+- **Dynamic Messaging:** Users can input custom text to send to the server, enhancing testing flexibility.
+- **Targeted Transmission:** Configured to communicate with the Desktop Server at the designated address: `192.168.0.105:3005`.
+- **Asynchronous Networking:** Uses background threads to handle network operations, keeping the UI responsive.
+- **Feedback System:** Provides simple alerts (Toast messages) for successful data transmission or connection failures.
+
+### Previews (Client UI)
+
+|                      1. Message Input Screen                      |                    2. Data Sent Confirmation                    |
 | :---------------------------------------------------------------: | :-------------------------------------------------------------: |
 | ![Mobile App with Message Input Field](<Previews/Android(1).jpg>) | ![Mobile App Data Sent Confirmation](<Previews/Android(2).jpg>) |
 
-## ✨ Part 2: Desktop Application (Server)
+---
 
-The Desktop Application, built with **JavaFX**, implements a two-page structure to clearly separate connection setup from real-time data monitoring and storage.
+## 💻 Part 2: Desktop Application (Server)
 
-### Page 1: Connection Setup (`ConnectionPage.fxml`)
+The JavaFX application acts as a multi-stage server, separating connection setup from operational monitoring.
 
-This page handles all pre-requisite connections for the system to operate.
+### 1. Connection Setup (`ConnectionPage.fxml`)
 
-- **MySQL Database Connection:** A dedicated button to establish and verify the connection with the **remote/local MySQL database**. This requires the **MySQL Connector/J** library. Status is updated in the UI.
-- **Server Socket Setup:** A dedicated button to start the `ServerSocket` listener on the specified IP and Port (`192.168.0.105:3005`). This runs in a background thread.
-- **Navigation:** Once **BOTH** the Database is connected and the Server is running, a new **GO TO MESSAGE VIEWER** button appears, allowing navigation to the second page.
+This initial screen ensures all necessary system components are active before monitoring begins.
 
-### Page 2: Data Preview & Storage (`DataViewer.fxml`)
+- ✅ **MySQL Connection:** Establishes a connection to the configured MySQL database instance via JDBC.
+- ✅ **Server Initialization:** Starts the `ServerSocket` listener on the specified IP and Port in a dedicated background thread.
+- ✅ **Guarded Navigation:** A **GO TO MESSAGE VIEWER** button only becomes active once both the database and the network server are successfully connected.
 
-This page is the operational dashboard, responsible for handling real-time data flow.
+### 2. Data Viewer & Storage (`DataViewer.fxml`)
 
-- **Real-Time Message Display:** A `TableView` or designated display area shows the incoming messages, providing a near real-time preview of the data received from the Mobile App clients.
-- **Data Persistence Logic:** An incoming message automatically triggers two actions:
-  1.  Updating the JavaFX UI (Table/Display).
-  2.  Inserting the received message, along with a timestamp, as a new record into the **MySQL** database table using prepared statements for security and efficiency.
-- **Persistent Storage:** The table visually confirms that the data has been saved and is persistent.
+This is the operational dashboard for real-time data management.
 
-### Previews (Desktop App)
+- **📈 Real-Time Preview:** Displays incoming messages from mobile clients instantly in a JavaFX `TableView`.
+- **💾 Persistent Storage:** Upon receiving a message, the server immediately inserts the data (message content + timestamp) as a new, unique record into the MySQL database.
+- **Concurrent Handling:** Uses multi-threading to continuously listen for new client connections while ensuring UI remains updated and responsive.
 
-| Feature                                                        | Screenshot                                                                         |
-| :------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
-| **Desktop(1).png** - Initial Connection Setup View             | ![Desktop App - Initial Connection View](<Previews/Desktop(1).png>)                |
-| **Desktop(2).png** - Database Connected and Server Started     | ![Desktop App - Server Started and Ready for Next Page](<Previews/Desktop(2).png>) |
-| **Desktop(3).png** - Navigated to Message Viewer Page          | ![Desktop App - Data Viewer Page (Empty)](<Previews/Desktop(3).png>)               |
-| **Desktop(4).png** - Data Received from Mobile App (Real-Time) | ![Desktop App - New Message Received and Displayed](<Previews/Desktop(4).png>)     |
-| **Desktop(5).png** - Data Table (Persistence Proof)            | ![Desktop App - Data Stored in Table](<Previews/Desktop(5).png>)                   |
+### Previews (Server UI Flow)
 
-## 🛠️ Setup and How to Run
+|    Step    | Description                        |                                     Screenshot                                     |
+| :--------: | :--------------------------------- | :--------------------------------------------------------------------------------: |
+| **Step 1** | Initial Connection Screen          |        ![Desktop App - Initial Connection View](<Previews/Desktop(1).png>)         |
+| **Step 2** | Both Database and Server Connected | ![Desktop App - Server Started and Ready for Next Page](<Previews/Desktop(2).png>) |
+| **Step 3** | Message Viewer Dashboard (Ready)   |        ![Desktop App - Data Viewer Page (Empty)](<Previews/Desktop(3).png>)        |
+| **Step 4** | Real-Time Data Reception           |   ![Desktop App - New Message Received and Displayed](<Previews/Desktop(4).png>)   |
+| **Step 5** | Stored Data Proof (Table View)     |          ![Desktop App - Data Stored in Table](<Previews/Desktop(5).png>)          |
+
+---
+
+## ⚙️ Running the Application
 
 ### Prerequisites
 
-- Java Development Kit (JDK) 17+
-- Android Studio (for Mobile App)
-- IDE supporting JavaFX (for Desktop App)
-- **MySQL Server Instance** (Running locally or accessible over the network)
-- **MySQL Connector/J JAR** (Must be included in the Desktop App's classpath)
+Ensure you have the following installed and configured:
 
-### Running the Desktop Server
+1.  **Java Development Kit (JDK) 17+**
+2.  **Android Studio** (for Client development)
+3.  **MySQL Server** (Running and accessible)
+4.  **MySQL Connector/J JAR** (Included in the Desktop App's classpath)
+5.  **JavaFX SDK** (Set up in your Desktop IDE, e.g., IntelliJ IDEA)
 
-1.  Open the Desktop App project and ensure the **MySQL Connector/J** library is correctly configured.
-2.  Review the database connection parameters (URL, user, password) in the database utility class.
-3.  Run the main JavaFX application class.
-4.  On the **Connection Setup** page:
+### Execution Steps
+
+1.  **Start MySQL:** Ensure your MySQL service is running and the target table structure is created.
+2.  **Start Desktop Server:**
+    - Run the main JavaFX application.
     - Click **CONNECT DB**.
     - Click **START SERVER**.
-5.  Once both are successful, click **GO TO MESSAGE VIEWER** to monitor incoming data.
+    - Click **GO TO MESSAGE VIEWER**.
+3.  **Start Mobile Client:**
+    - Run the Android application on a device/emulator **on the same local network** as the Desktop Server.
+    - Enter a message and click **SEND DATA**.
+    - Verify the message appears instantly in the Desktop App's viewer and is saved to MySQL.
 
-### Running the Mobile Client
+---
 
-1.  Open the Mobile App project in Android Studio.
-2.  Run the app on an Android device or emulator **that is on the same local network** as the Desktop Server.
-3.  Enter a custom message into the input field and click the **SEND DATA** button.
+## ✅ Assignment Fulfillment Summary
 
-## ✅ Evaluation Criteria Fulfillment
-
-| Criteria                                        | Implementation Details                                                                                                                                                                         |
-| :---------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Correct Network Communication**               | Uses `Socket`/`ServerSocket` for robust TCP/IP communication. The server architecture is multi-threaded to handle continuous listening without blocking the JavaFX UI thread.                  |
-| **Database Connectivity & Persistence (MySQL)** | Utilizes **JDBC** with the **MySQL Connector/J**. All received messages are persisted as new, time-stamped records into the MySQL database, fulfilling the "new record per entry" requirement. |
-| **Code Quality & Structure**                    | Excellent separation of concerns using JavaFX Controllers and dedicated service classes for Network and Database operations. Code is modularized and follows Java best practices.              |
-| **Improved Architecture**                       | The two-page Desktop app (Connection Setup $\rightarrow$ Data Viewer) provides a clear, logical flow, separating configuration from operation.                                                 |
-| **Custom Messaging**                            | The Mobile App supports user-defined data, increasing practical utility and testing flexibility.                                                                                               |
+| Criteria                     | Implementation Highlights                                                                                         |
+| :--------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| **Network Communication**    | Robust, multi-threaded TCP/IP socket implementation for reliable data transfer.                                   |
+| **Database Persistence**     | Successful integration with **MySQL** using JDBC, ensuring every message is stored as a new, time-stamped record. |
+| **Code Structure & Quality** | Clean separation of concerns (Network, DB, UI) using modular Java classes and FXML controllers.                   |
+| **UI/UX**                    | Professional JavaFX interface with a two-stage connection process for improved stability and user feedback.       |
+| **Functionality**            | Supports custom, dynamic messaging from the Mobile Client.                                                        |
