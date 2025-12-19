@@ -85,7 +85,7 @@ Ensure you have the following installed and configured:
 3.  **MySQL Server** (Running and accessible)
 4.  **MySQL Connector/J JAR** (Included in the Desktop App's classpath)
 5.  **JavaFX SDK** (Set up in your Desktop IDE, e.g., IntelliJ IDEA)
-6.  **VM options** --module-path "C:\javafx-sdk-17.0.17\lib" --add-modules javafx.controls,javafx.fxml
+6.  **VM options Code** (Run > Edit Configurations > Modify Option > Add VM Option) --module-path "C:\javafx-sdk-17.0.17\lib" --add-modules javafx.controls,javafx.fxml
 
 ### Execution Steps
 
